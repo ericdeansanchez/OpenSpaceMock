@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Chonburi|Roboto|Stardos+Stencil" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css" rel="stylesheet">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        #map {
+            height: 100%;
+        }
+    </style>
+    <title>OpenSpace</title>
+</head>
+<nav class="navbar topper navbar-default">
+    <a class="navbar-brand brand-font" href="index.html"><span class="glyphicon glyphicon-map-marker"></span>penSpace</a>
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a id="setting-cog" class="right-a" href="login.html"><span class="glyphicon glyphicon-cog"></span></a></li>
+        </ul>
+    </div>
+</nav>
+<body>
+    <div id="map"></div>
+    <div class="navbar foot navbar-fixed-bottom">
+        <a href="index.html" class="left-a"><span class="glyphicon glyphicon-home footspan" aria-hidden="true"></span>
+        </a>
+        <a class="left-a" href="library/library.html"><span class="glyphicon glyphicon-search footspan" aria-hidden="true"></span></a>
+        <a class="left-a" href="mapfile.html"><span class="glyphicon glyphicon-map-marker footspan" aria-hidden="true"></span></a>
+        <a class="left-a" href="check_in.html"><span class="glyphicon glyphicon-bell footspan" aria-hidden="true"></span></a>
+        <a class="left-a" href="#"  onclick="window.open('index.html','pagename','resizable,height=650,width=400'); return false;"><span class="glyphicon glyphicon-comment footspan"></span></a>
+    </div>
+    <script>
+        let map, infoWindow;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 37.8719, lng: -122.2607 },
+                zoom: 17
+            });
+            infoWindow = new google.maps.InfoWindow;
+
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('You Are Here');
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                }, function () {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'You are Here' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
+    </script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb_3eKXiVgg-ld4Dsy84qZ6pSZqugDACo&callback=initMap">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+</body>
+
+</html>
