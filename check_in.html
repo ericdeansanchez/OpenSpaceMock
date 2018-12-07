@@ -1,0 +1,153 @@
+<!DOCTYPE html >
+<html lang="en">
+
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Check In</title>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar topper navbar-default">
+    <a class="navbar-brand brand-font" href="index.html"><span class="glyphicon glyphicon-map-marker"></span>penSpace</a>
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a id="setting-cog" class="right-a" href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
+        </ul>
+    </div>
+</nav>
+    <div id="map"></div>
+    <div id="message">Location saved</div>
+
+<div class="navbar foot navbar-fixed-bottom">
+    <a href="index.html" class="left-a"><span class="glyphicon glyphicon-home footspan" aria-hidden="true"></span>
+    </a>
+    <a class="left-a" href="library/library.html"><span class="glyphicon glyphicon-search footspan" aria-hidden="true"></span></a>
+    <a class="left-a" href="mapfile.html"><span class="glyphicon glyphicon-map-marker footspan" aria-hidden="true"></span></a>
+    <a class="left-a" href="check_in.html"><span class="glyphicon glyphicon-bell footspan" aria-hidden="true"></span></a>
+    <a class="left-a" href="#"><span class="glyphicon glyphicon-comment footspan"></span></a>
+</div>
+
+<div id="form">
+    <table>
+        <p>Schedule Notification: </p>
+        <tr>
+            <td>Space:  </td>
+            <td><select id='type'> +
+                <option value='3rd' SELECTED>3rd Floor</option>
+                <option value='4th'>4th Floor</option>
+                <option value='5th'>5th Floor</option>
+            </select>
+        <tr>
+            <td>Time:  </td>
+            <td><select id=''> +
+                <option value='morning' SELECTED>10:00am</option>
+                <option value='morning'>11:00am</option>
+                <option value='afternoon'>12:00pm</option>
+                <option value='afternoon'>1:00pm</option>
+                <option value='afternoon'>2:00pm</option>
+                <option value='afternoon'>3:00pm</option>
+                <option value='afternoon'>4:00pm</option>
+            </select> </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><a href="success.html"><input type='button' value='Schedule' /></a></td>
+        </tr>
+    </table>
+</div>s
+    <script>
+        var map;
+        var marker;
+        var infowindow;
+        var messagewindow;
+
+        function initMap() {
+            var moffitt = { lat: 37.8726, lng: -122.2607 };
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: moffitt,
+                zoom: 17
+            });
+
+            infowindow = new google.maps.InfoWindow({
+                content: document.getElementById('form')
+            });
+
+            messagewindow = new google.maps.InfoWindow({
+                content: document.getElementById('message')
+            });
+
+            google.maps.event.addListener(map, 'click', function (event) {
+                marker = new google.maps.Marker({
+                    position: event.latLng,
+                    map: map
+                });
+
+
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.open(map, marker);
+                });
+            });
+        }
+
+        function saveData() {
+            var name = escape(document.getElementById('name').value);
+            var address = escape(document.getElementById('address').value);
+            var type = document.getElementById('type').value;
+            var latlng = marker.getPosition();
+            var url = 'phpsqlinfo_addrow.php?name=' + name + '&address=' + address +
+                '&type=' + type + '&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+
+            downloadUrl(url, function (data, responseCode) {
+
+                if (responseCode == 200 && data.length <= 1) {
+                    infowindow.close();
+                    messagewindow.open(map, marker);
+                }
+            });
+        }
+
+        function downloadUrl(url, callback) {
+            var request = window.ActiveXObject ?
+                new ActiveXObject('Microsoft.XMLHTTP') :
+                new XMLHttpRequest;
+
+            request.onreadystatechange = function () {
+                if (request.readyState == 4) {
+                    request.onreadystatechange = doNothing;
+                    callback(request.responseText, request.status);
+                }
+            };
+
+            request.open('GET', url, true);
+            request.send(null);
+        }
+
+        function doNothing() {
+        }
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb_3eKXiVgg-ld4Dsy84qZ6pSZqugDACo&callback=initMap">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+</body>
+
+</html>

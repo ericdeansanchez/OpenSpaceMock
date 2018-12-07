@@ -1,0 +1,148 @@
+h1 {
+    font-family: 'Roboto', sans-serif;
+}
+
+.Contain {
+}
+
+.glyphicon {
+    font-size: 20px;
+}
+
+.body {
+    margin: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {background: white;}
+
+img {
+    width: 320px;
+    height: 200px;
+    padding: 1em;
+}
+
+a.brand-font {
+    color: #003262!important;
+}
+
+#setting-cog {
+    color: #003262!important;
+}
+
+div.card {
+    width: 340px;
+    height: 360px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    background: white;
+    margin: 1em;
+}
+
+.header {
+    font-weight: bold;
+    text-align: center;
+}
+.basic-info {
+    text-align: left;
+}
+.description {
+    margin: 1px;
+}
+
+
+.content {
+    margin: 1em;
+    text-align: left;
+}
+.oh {
+    font-size: 34px;
+}
+
+.login-button {
+    color: white!important;
+    background: #003262!important;
+}
+
+
+.login-position {
+    position: absolute;
+}
+
+.login-greeting {
+    color: #003262!important;
+    position: relative;
+}
+
+.login-img {
+    width: 100%!important;
+}
+
+span.footspan {
+    margin: 10px;
+}
+
+.navbar.foot {
+    background: #EEEEEE;
+    color: #003262;
+    border-top-color: #EEEEEE;
+}
+
+.navbar.topper {
+    background: #EEEEEE;
+    border-bottom-color: #EEEEEE;
+}
+
+/* Style the links inside the navigation bar */
+.navbar a.left-a {
+    float: left;
+    display: block;
+    color: #003262;
+    text-align: center;
+    padding: 16px 16px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+
+.navbar a.right-a {
+    float: right;
+    color: #003262;
+    text-align: center;
+    padding: 12px 12px;
+    text-decoration: none;
+    font-size: 16px;
+}
+/* Change the color of links on hover */
+.navbar a:hover {
+    color: #C4820E!important;
+}
+
+.container {
+    position: relative;
+    width: 100%!important;
+}
+
+.text-block {
+    position: absolute;
+    bottom: 150px;
+    right: 100px;
+    color: white;
+}
+
+.blink_me {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.rec {
+    margin: 2em;
+    color: #003262;
+}
+
+
